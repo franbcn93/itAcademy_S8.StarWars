@@ -1,0 +1,35 @@
+<button class="btn btn-secondary" (click)="getAllShips(page_number)">Obtenir primeres naus</button>
+<div class="container">
+  <div class="row">
+    <div class="card" *ngFor="let nau of arrayShips" (page_number)="page_number">
+      <div class="card-body" >
+        <img src={{nau.url}} alt="">
+        <br>
+        <h5>{{nau.name}}{{page_number}}</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <p>Model: {{nau.model}}</p> 
+          </div>
+          <div class="col-md-6">
+            <p>Manufacturer: {{nau.manufacturer}}</p>  
+          </div>
+          <div class="col-md-6">
+            <p>Cost in credits: {{nau.cost_in_credits}}</p> 
+          </div>
+          <div class="col-md-6">
+            <p>Length: {{nau.length_ship}} m</p>  
+          </div>
+          <div class="col-md-6">
+            <p>Atmospheric Speed: {{nau.max_atmosphering_speed}}</p> 
+          </div>
+          <div class="col-md-6">
+            <p>Crew: {{nau.crew}}</p>  
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+<button class="btn btn-secondary" *ngIf="boto" (click)="getAllShips(page_number)">Obtenir mes naus</button>
+<button class="btn btn-secondary" *ngIf="!boto && page_number === 3" (click)="getAllShips(page_number)">Obtenir mes naus</button>
+
