@@ -20,6 +20,7 @@ h1 {
   position: relative;
   text-decoration: none;
   display: inline-block;
+  font-family: "Rowdies", cursive;
 }
 .justify-content-center a:before {
   position: absolute;

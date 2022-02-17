@@ -1,0 +1,17 @@
+.modal-body {
+  text-align: center;
+}
+input {
+  margin: 10px;
+  box-shadow: 5px 5px 3px yellow;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: black;
+}
+
+.modal-title {
+  color: white;
+}

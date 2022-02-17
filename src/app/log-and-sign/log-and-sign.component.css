@@ -1,0 +1,20 @@
+.logSign {
+  color: white;
+  position: absolute;
+  bottom: 85%;
+  right: 0;
+  padding-right: 60px;
+}
+
+.btn-link {
+  color: white;
+  text-decoration: none;
+  text-size-adjust: 20px;
+  font-size: 20px;
+  font-family: "Rowdies", cursive;
+  transition: font-size 0.3s;
+}
+
+.btn-link:hover {
+  font-size: 1.4em;
+}
