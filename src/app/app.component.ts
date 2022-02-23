@@ -38,7 +38,10 @@ import {
   ] // register the animations
 })
 export class AppComponent {
-  title = 'starwars'
+  title_1 = 'Star';
+  title_2 = 'Wars';
+  home = "HOME";
+  starShips = "STARSHIPS";
 
   constructor() { }
 

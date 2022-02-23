@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  title: string = "Instruccions";
+
   constructor(private router: Router, private modalService: NgbModal) {
 
    }

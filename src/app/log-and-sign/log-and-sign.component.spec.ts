@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { LogAndSignComponent } from './log-and-sign.component';
 
@@ -8,6 +10,9 @@ describe('LogAndSignComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
       declarations: [ LogAndSignComponent ]
     })
     .compileComponents();
@@ -21,5 +26,15 @@ describe('LogAndSignComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be instanced', () => {
+    expect(component).toBeInstanceOf(LogAndSignComponent);
+  });
+
+  it(`detect Changes login() and signup()`, () => {
+    component.login();
+    component.signup();
+    fixture.detectChanges();
   });
 });
