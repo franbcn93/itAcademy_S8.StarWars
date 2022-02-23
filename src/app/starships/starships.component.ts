@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { StarshipsServiceService } from '../starships-service.service';
 import { Ships } from '../Ships';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { TargetPilotComponent } from '../target-pilot/target-pilot.component';
+
 
 @Component({
   selector: 'app-starships',
@@ -13,34 +16,66 @@ export class StarshipsComponent implements OnInit {
   users: any;
   boto: boolean = false;
   page_number: number = 1;
+  error:string = 'Comproba la teva contrasenya o registat avanç per veure les naus';
+  cardError:boolean = false;
+  arrayTargets: Array<String>= [];
+  orderShip:number = 0;
+  shipsTarget: any;
+  
  
-  constructor(private starshipsService:StarshipsServiceService) { }
+  constructor(private starshipsService:StarshipsServiceService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
   
 
   getAllShips(page:number){
-    this.starshipsService.getShips(page)
-    .subscribe(ships=>{
-      this.users = ships;
-      console.log(ships)
-      this.users.results.map((entry: 
-        { name: string; model:string; url:string, manufacturer:string, cost_in_credits:string,
-          length:string, max_atmosphering_speed:string, crew:string})=>{ 
-        let url:string = this.numberShip(entry.url);
-        
-        let nau:Ships = new Ships(entry.name, entry.model, url, entry.manufacturer, 
-          entry.cost_in_credits, entry.length, entry.max_atmosphering_speed, entry.crew)
-        this.arrayShips.push(nau);
-        
+    if(this.userLogIn()){
+      this.cardError = false;
+      this.starshipsService.getShips(page)
+      .subscribe(ships=>{
+        this.users = ships;
+        console.log(ships)
+        this.users.results.map((entry: 
+          { name: string; model:string; url:string, manufacturer:string, cost_in_credits:string,
+            length:string, max_atmosphering_speed:string, crew:string, pilots:string})=>{ 
+          let url:string = this.numberShip(entry.url);
+          
+          let nau:Ships = new Ships(entry.name, entry.model, url, entry.manufacturer, 
+            entry.cost_in_credits, entry.length, entry.max_atmosphering_speed, entry.crew, this.orderShip
+            )
+          this.arrayShips.push(nau);
+          this.orderShip++;
+
+          this.arrayTargets.push(entry.pilots);
+          
+        })
+      })
+      // Posem el botó a true, per mostrar el botó de obtenir mes naus
+      setTimeout( () => {
+        this.page_number++;
+        return this.boto = !this.boto;
+     }, 3000);
+    }
+    else{
+      this.cardError = true;
+    }
+  }
+
+
+  // Verifiquem si l'usuari existeix
+  userLogIn(){
+    let allUsers = this.starshipsService.getAllUsers();
+    let userLogIn = this.starshipsService.getLogIn();
+    let usuari:boolean=false;
+    allUsers.filter(user =>{
+      userLogIn.map(u => {
+        if(u.username === user.username && u.password === user.password){
+          usuari = true;
+        }
       })
     })
-    // Posem el botó a true, per mostrar el botó de obtenir mes naus
-    setTimeout( () => {
-      this.page_number++;
-      return this.boto = !this.boto;
-   }, 1000);
+    return usuari;
   }
 
   numberShip(numeroNau:string){
@@ -63,6 +98,26 @@ export class StarshipsComponent implements OnInit {
 
     let url:string = `https://starwars-visualguide.com/assets/img/starships/${r}.jpg`
     return url;
+  }
+
+  getTargets(numberShip:number){
+    this.starshipsService.setAllPilots(this.arrayTargets, numberShip)
+    
+
+    if((this.arrayTargets[numberShip]).length === 0){
+      console.log("está vacia");
+      alert("Aquesta nau es vuida i no te targetes.")
+    }
+    else{
+      setTimeout( () => {
+        console.log(this.starshipsService.getAllPilots());
+     }, 1000);
+      
+      this.starshipsService.getTargets(this.arrayTargets, numberShip)
+      .subscribe(ships=>{
+        this.modalService.open(TargetPilotComponent); 
+      })
+    }
   }
 
 }

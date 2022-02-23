@@ -11,10 +11,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyPopupComponent } from './my-pop-up/my-pop-up.component';
 import { LogAndSignComponent } from './log-and-sign/log-and-sign.component';
 import { MyPopUpSignComponent } from './my-pop-up-sign/my-pop-up-sign.component';
+import { TargetPilotComponent } from './target-pilot/target-pilot.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes=[
-  {path: '', component:HomeComponent},
-  {path: 'starships', component:StarshipsComponent}
+  {path: '', component:HomeComponent, data: { animationState: 'Home' }},
+  {path: 'starships', component:StarshipsComponent, data: { animationState: 'Starships' }}
 ];
 
 
@@ -25,14 +27,16 @@ const routes: Routes=[
     StarshipsComponent,
     MyPopupComponent,
     LogAndSignComponent,
-    MyPopUpSignComponent
+    MyPopUpSignComponent,
+    TargetPilotComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

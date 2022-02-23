@@ -1,0 +1,19 @@
+.modal-body,
+.modal-title {
+  text-align: center;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: black;
+}
+
+.modal-title,
+p {
+  color: white;
+}
+
+/* .modal-header {
+  width: max-content;
+} */

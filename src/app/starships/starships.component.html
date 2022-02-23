@@ -1,11 +1,18 @@
-<button class="btn btn-secondary" (click)="getAllShips(page_number)">Obtenir primeres naus</button>
+<button class="btn btn-secondary getAllShips" (click)="getAllShips(page_number)">Obtenir primeres naus</button>
 <div class="container">
   <div class="row">
-    <div class="card" *ngFor="let nau of arrayShips" (page_number)="page_number">
+    <div *ngIf="cardError" class="card text-white bg-danger mt-4" >
+      <div class="card-header">Error</div>
+      <div class="card-body">
+        <h5 class="card-title text-center">Un error ha succeït</h5>
+        <h5 class="card-text mb-4 text-center">{{error}}</h5>
+      </div>
+    </div>
+    <div class="card cardNau" *ngFor="let nau of arrayShips" (page_number)="page_number">
       <div class="card-body" >
         <img src={{nau.url}} alt="">
         <br>
-        <h5>{{nau.name}}{{page_number}}</h5>
+        <h5>{{nau.name}}</h5>
         <div class="row">
           <div class="col-md-6">
             <p>Model: {{nau.model}}</p> 
@@ -25,6 +32,7 @@
           <div class="col-md-6">
             <p>Crew: {{nau.crew}}</p>  
           </div>
+          <button type="submit" (click)="getTargets(nau.orderShip)" class="targets btn-primary mb-3 m-3 p-2">See pilot targets</button>
         </div>
       </div>
     </div> 

@@ -1,4 +1,4 @@
-.card {
+.cardNau {
   background-color: #2a2222 !important;
   /* filter: grayscale(100%) !important; */
   margin: 20px 50px;
@@ -33,4 +33,8 @@ h5 {
 img:hover {
   transform: scale(1.07);
   opacity: 0.9;
+}
+
+.targets {
+  border-radius: 6px;
 }

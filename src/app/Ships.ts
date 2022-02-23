@@ -8,9 +8,10 @@ export class Ships {
     public length_ship:string;
     public max_atmosphering_speed:string;
     public crew:string;
+    public orderShip:number;
    
     constructor(name:string, model:string, url:string, manufacturer:string, cost_in_credits:string,
-       length:string, max_atmosphering_speed:string, crew:string) {
+       length:string, max_atmosphering_speed:string, crew:string, orderShip:number) {
       this.name = name;
       this.model = model;
       this.url = url;
@@ -19,6 +20,7 @@ export class Ships {
       this.length_ship = length;
       this.max_atmosphering_speed = max_atmosphering_speed;
       this.crew = crew;
+      this.orderShip = orderShip;
     }
      
   }
