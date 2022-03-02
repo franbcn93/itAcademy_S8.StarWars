@@ -101,22 +101,17 @@ export class StarshipsComponent implements OnInit {
   }
 
   getTargets(numberShip:number){
-    this.starshipsService.setAllPilots(this.arrayTargets, numberShip)
-    
 
     if((this.arrayTargets[numberShip]).length === 0){
       console.log("está vacia");
       alert("Aquesta nau es vuida i no te targetes.")
     }
-    else{
-      setTimeout( () => {
-        console.log(this.starshipsService.getAllPilots());
-     }, 1000);
-      
-      this.starshipsService.getTargets(this.arrayTargets, numberShip)
-      .subscribe(ships=>{
-        this.modalService.open(TargetPilotComponent); 
-      })
+    else{      
+     this.starshipsService.getTargets(this.arrayTargets, numberShip)
+     .subscribe(ship =>{
+       const modalRef = this.modalService.open(TargetPilotComponent);
+       modalRef.componentInstance.nave = ship;
+     });
     }
   }
 

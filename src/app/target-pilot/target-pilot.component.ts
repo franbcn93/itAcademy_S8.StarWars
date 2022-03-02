@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Target } from '../Target';
 import { StarshipsServiceService } from '../starships-service.service';
@@ -7,17 +7,16 @@ import { StarshipsServiceService } from '../starships-service.service';
 @Component({
   selector: 'app-target-pilot',
   template: `
-            <div class="modal-header" *ngFor="let ship of targets; let i=index">
-              <div *ngFor="let each of ship">
+            <div class="modal-header" >
+              <div>
                 <h4 class="modal-title" >
-                  {{each.name}}  </h4>
+                  {{nave.name}}  </h4>
                 <div class="modal-body">
-                  <p>Height: {{each.height}}</p>
-                  <p>Mass: {{each.mass}}</p>
-                  <p>Hair_color: {{each.hair_color}}</p>
-                  <p>Skin color: {{each.skin_color}}</p>
+                  <p>Height: {{nave.height}}</p>
+                  <p>Mass: {{nave.mass}}</p>
+                  <p>Hair_color: {{nave.hair_color}}</p>
+                  <p>Skin color: {{nave.skin_color}}</p>
                 </div>
-        
               </div>
             </div>
             <div class="modal-footer">
@@ -29,19 +28,21 @@ import { StarshipsServiceService } from '../starships-service.service';
 })
 export class TargetPilotComponent implements OnInit {
 
-  targets:Array<Target>[]=[];
+  // targets:Array<Target>[]=[];
+  @Input() nave:any;
+
 
   constructor(public activeModal: NgbActiveModal, private service:StarshipsServiceService) { 
-    this.arrays();
+    // this.arrays();
   }
 
   ngOnInit(): void {
   }
 
-  arrays(){
-    this.targets.push(this.service.getAllPilots());
-    console.log(this.targets);
-  }
+  // arrays(){
+  //   this.targets.push(this.service.getAllPilots());
+  //   console.log(this.targets, this.nave);
+  // }
   
   
 
