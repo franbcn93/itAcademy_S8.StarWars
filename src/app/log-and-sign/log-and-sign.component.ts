@@ -18,16 +18,16 @@ export class LogAndSignComponent implements OnInit {
 
   login() {
     const modalRef = this.modalService.open(MyPopupComponent);
-    modalRef.componentInstance.title = 'Log In';
-    modalRef.componentInstance.text = "Username or Email Address";
-    modalRef.componentInstance.text_2 = "Password";
+    modalRef.componentInstance.title = ' Log In';
+    modalRef.componentInstance.text = "  Email Address";
+    modalRef.componentInstance.text_2 = "  Password";
   }
   
   signup(){
     const modalRef = this.modalService.open(MyPopUpSignComponent);
-    modalRef.componentInstance.title = 'Sign Up';
-    modalRef.componentInstance.text = "Username";
-    modalRef.componentInstance.text_2 = "Email Address";
-    modalRef.componentInstance.text_3 = "Password";
+    modalRef.componentInstance.title = ' Sign Up';
+    modalRef.componentInstance.text = "  Username";
+    modalRef.componentInstance.text_2 = "  Email Address";
+    modalRef.componentInstance.text_3 = "  Password";
   }
 }

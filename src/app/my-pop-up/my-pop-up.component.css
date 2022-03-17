@@ -15,3 +15,7 @@ input {
 .modal-title {
   color: white;
 }
+
+p {
+  color: red;
+}

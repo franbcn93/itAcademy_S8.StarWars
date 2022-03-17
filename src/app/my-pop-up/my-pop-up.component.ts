@@ -14,11 +14,13 @@ import { StarshipsServiceService } from '../starships-service.service';
             </div>
             <div class="modal-body">
               <input type="text" placeholder={{text}} (change)="setUsername($event)">
+              <p>{{emailReq}}</p>
               <input type="text" placeholder={{text_2}} (change)="setPassword($event)">
+              <p>{{passwordReq}}</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-warning" 
-              (click)="activeModal.close('Close click')" (click)="grabar_user_logIn()">Log In</button>
+               (click)="grabar_user_logIn()">Log In</button>
             </div>
           `,
   styleUrls: ['./my-pop-up.component.css']
@@ -28,8 +30,11 @@ export class MyPopupComponent implements OnInit {
   @Input() title: any;
   @Input() text: any;
   @Input() text_2: any;
-  @Input() username:string = "";
+  @Input() email:string = "";
   @Input() password:string = "";
+  emailReq:string = "";
+  passwordReq:string = "";
+  count: number = 0;
 
   constructor(public activeModal: NgbActiveModal, private service:StarshipsServiceService) {}
 
@@ -37,7 +42,7 @@ export class MyPopupComponent implements OnInit {
   }
 
   setUsername(event:any){
-    this.username = event.target.value;
+    this.email = event.target.value;
   } 
 
   setPassword(event:any){
@@ -45,7 +50,26 @@ export class MyPopupComponent implements OnInit {
   }
 
   grabar_user_logIn(){
-    this.service.setLogIn(this.username, this.password);
+    this.fieldEmpty(this.email, this.password);
+    if(this.count === 2){
+      this.service.setSignUp(this.email, this.email, this.password);
+      this.activeModal.close();      
+    }
   }
 
+  fieldEmpty(email:string, password:string){
+    this.count = 0;
+    if(this.email === ""){
+      this.emailReq = "Email is required";
+    }else{   
+      this.emailReq = "";
+      this.count++;
+    }
+    if(this.password === ""){
+      this.passwordReq = "Password is required";
+    }else{
+      this.passwordReq === "";
+      this.count++;
+    }
+  }
 }

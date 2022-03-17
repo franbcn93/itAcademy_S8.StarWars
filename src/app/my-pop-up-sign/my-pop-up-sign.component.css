@@ -1,4 +1,4 @@
-.modal-body_2 {
+.modal-body {
   text-align: center;
 }
 input {
@@ -7,11 +7,15 @@ input {
 }
 
 .modal-header,
-.modal-body_2,
+.modal-body,
 .modal-footer {
   background-color: black;
 }
 
 .modal-title {
   color: white;
+}
+
+p {
+  color: red;
 }
