@@ -32,8 +32,8 @@ export class StarshipsServiceService {
     console.log(this.arraySignUp);
   }
 
-  public setLogIn(username:string, password:string){
-    let dadesLogIn = new LogIn(username, password);
+  public setLogIn(email:string, password:string){
+    let dadesLogIn = new LogIn(email, password);
     this.arrayLogIn.push(dadesLogIn);
     localStorage.setItem("usuari LogIn: ", JSON.stringify(dadesLogIn));
     console.log(this.arrayLogIn);

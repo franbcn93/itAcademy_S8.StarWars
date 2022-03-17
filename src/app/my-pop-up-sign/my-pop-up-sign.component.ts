@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StarshipsServiceService } from '../starships-service.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserData } from '../../user-data';
 
 @Component({
   selector: 'app-my-pop-up-sign',
@@ -13,14 +13,25 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+            
             <div class="modal-body">
-              <input type="text" placeholder={{text}} (change)="setUsername($event)">
-              <p>{{nameReq}}</p>
-              <input type="email" placeholder={{text_2}} (change)="setEmail($event)">
-              <p>{{emailReq}}</p>
-              <input type="password" placeholder={{text_3}} (change)="setPassword($event)">
-              <p>{{passwordReq}}</p>
+              <input class="form-control" type="text" placeholder={{text}} (change)="setUsername($event)">
+              <div>
+                <small class="text-danger">{{nameReq}}</small>
+              </div>
+              <input type="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched"
+                    required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" class="form-control" name="secondaryEmail"
+                    [(ngModel)]="userModel.address" placeholder={{text_2}} (change)="setEmail($event)"/>
+              <div *ngIf="email.errors && (email.invalid || email.touched)">
+                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Please provide a valid email address</small>
+              </div>
+              <input class="form-control" type="password" placeholder={{text_3}} (change)="setPassword($event)">
+              <div>
+                <small class="text-danger">{{passwordReq}}</small>
+              </div>
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-warning" 
                (click)="grabar_user_signUp()">Sign Up</button>
@@ -40,11 +51,10 @@ export class MyPopUpSignComponent implements OnInit {
   @Input() username:string = "";
   @Input() email:string = "";
   @Input() password:string = "";
-  emailReq:string = "";
-  passwordReq:string = "";
-  nameReq:string = "";
+  passwordReq:string = "Password is required";
+  nameReq:string = "Name is required";
   count: number = 0;
-  
+  userModel = new UserData('')
 
   myUser: string="";
   nombre: string = "Paco"
@@ -77,29 +87,18 @@ export class MyPopUpSignComponent implements OnInit {
     if(this.count === 3){
       this.service.setSignUp(this.username, this.email, this.password);
       this.activeModal.close();      
-    }
-    
+    }  
   }
 
   fieldEmpty(name:string, email:string, password:string){
     this.count = 0;
-    if(this.username === ""){
-      this.nameReq = "Name is required";
-    }else{
-      this.nameReq = "";
+    if(this.username !== ""){
       this.count++;
     }
-    if(this.email === ""){
-      this.emailReq = "Email is required";
-    }else{
-      
-      this.emailReq = "";
+    if(this.email !== ""){
       this.count++;
     }
-    if(this.password === ""){
-      this.passwordReq = "Password is required";
-    }else{
-      this.passwordReq === "";
+    if(this.password !== ""){
       this.count++;
     }
   }

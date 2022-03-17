@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { StarshipsComponent } from './starships/starships.component';
 import { HttpClientModule } from '@angular/common/http'
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyPopupComponent } from './my-pop-up/my-pop-up.component';
 import { LogAndSignComponent } from './log-and-sign/log-and-sign.component';
@@ -36,7 +36,8 @@ const routes: Routes=[
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
