@@ -8,7 +8,8 @@ input {
 
 .modal-header,
 .modal-body,
-.modal-footer {
+.modal-footer,
+.modal-body_2 {
   background-color: black;
 }
 
@@ -16,6 +17,18 @@ input {
   color: white;
 }
 
-p {
-  color: red;
+label {
+  padding: 20px 50px 20px 20px;
+}
+.labelEmail {
+  padding-right: 84px;
+}
+
+small {
+  padding-left: 20px;
+}
+
+input {
+  width: 92%;
+  margin: 10px 20px;
 }

@@ -14,30 +14,36 @@ import { UserData } from '../../user-data';
               </button>
             </div>
             
-            <div class="modal-body">
-              <input class="form-control" type="text" placeholder={{text}} (change)="setUsername($event)">
-              <div>
-                <small class="text-danger">{{nameReq}}</small>
-              </div>
-              <input type="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched"
-                    required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" class="form-control" name="secondaryEmail"
-                    [(ngModel)]="userModel.address" placeholder={{text_2}} (change)="setEmail($event)"/>
-              <div *ngIf="email.errors && (email.invalid || email.touched)">
-                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
-                <small class="text-danger" *ngIf="email.errors.pattern">Please provide a valid email address</small>
-              </div>
-              <input class="form-control" type="password" placeholder={{text_3}} (change)="setPassword($event)">
-              <div>
-                <small class="text-danger">{{passwordReq}}</small>
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-warning" 
-               (click)="grabar_user_signUp()">Sign Up</button>
-            </div>
-            
-          
+            <div class="modal-body_2">
+              <form class="custom-form" method="post">
+                <input
+                  type="email"
+                  [(ngModel)]="email"
+                  name="email"
+                  placeholder="Email"
+                  required="required"
+                />
+                <input
+                  type="password"
+                  [(ngModel)]="password"
+                  name="password"
+                  placeholder="Password"
+                  required="required"
+                />
+                <input
+                  type="password"
+                  [(ngModel)]="confirmPassword"
+                  name="password"
+                  placeholder="Repeat the password"
+                  required="required"
+                />
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-outline-warning" 
+                   (click)="grabar_user_signUp()"
+                  >Sign Up</button>
+                </div>
+              </form>
+            </div> 
           `,
   styleUrls: ['./my-pop-up-sign.component.css']
   
@@ -45,23 +51,11 @@ import { UserData } from '../../user-data';
 export class MyPopUpSignComponent implements OnInit {
 
   @Input() title: any;
-  @Input() text: any;
-  @Input() text_2: any;
-  @Input() text_3: any;
-  @Input() username:string = "";
-  @Input() email:string = "";
-  @Input() password:string = "";
-  passwordReq:string = "Password is required";
-  nameReq:string = "Name is required";
+  email: string = "";
+  password: string = "";
+  confirmPassword: string = "";
   count: number = 0;
   userModel = new UserData('')
-
-  myUser: string="";
-  nombre: string = "Paco"
-  persona =  {
-    nombre:"Fran",
-    edad:41
-  }
 
   constructor(public activeModal: NgbActiveModal, private service:StarshipsServiceService) {
    
@@ -69,37 +63,29 @@ export class MyPopUpSignComponent implements OnInit {
   
   ngOnInit(): void {
   }
-  
-  setUsername(event:any){
-    this.username = event.target.value;
-  } 
-  
-  setEmail(event:any){
-    this.email = event.target.value;
-  }
-
-  setPassword(event:any){
-    this.password = event.target.value;
-  }
 
   grabar_user_signUp(){
-    this.fieldEmpty(this.username, this.email, this.password);
+    this.fieldEmpty(this.email, this.password, this.confirmPassword);
     if(this.count === 3){
-      this.service.setSignUp(this.username, this.email, this.password);
+      this.service.setSignUp(this.email, this.password, this.confirmPassword);
       this.activeModal.close();      
     }  
   }
 
-  fieldEmpty(name:string, email:string, password:string){
+  fieldEmpty(email:string, password:string, confirmPassword:string){
     this.count = 0;
-    if(this.username !== ""){
-      this.count++;
-    }
     if(this.email !== ""){
       this.count++;
     }
     if(this.password !== ""){
       this.count++;
+    }
+    if(this.confirmPassword !== ""){
+      this.count++;
+    }
+    if(this.password != this.confirmPassword){
+      alert("Two passwords are not equals")
+      this.count--;
     }
   }
 }
